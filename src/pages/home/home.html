@@ -1,0 +1,28 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home Page</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-searchbar placeholder="Search for locations"></ion-searchbar>
+
+  <ion-card (click)="openPage('CityOverviewPage', 'London')">
+    <img src="../../assets/imgs/London.jpg" alt="no image atm">
+    <div class="card-title">London</div>
+  </ion-card>
+
+  <ion-card (click)="openPage('CityOverviewPage', 'World')">
+    <img src="../../assets/imgs/World.jpg" alt="no image atm">
+    <div class="card-title">World</div>
+  </ion-card> 
+
+</ion-content>

@@ -1,0 +1,29 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Map</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--<ion-searchbar id="floating-searchbar"
+    [(ngModel)]="address" 
+    (setAddress)="getAddress($event)" 
+></ion-searchbar>-->
+
+  <ion-searchbar 
+    id="floating-searchbar" 
+    [(ngModel)]="address"
+    (ionChange)="showPos()">
+  </ion-searchbar>
+
+  <div #map id="map"></div>
+
+  <button ion-button (click)="showPosName()">Position name</button>
+</ion-content>

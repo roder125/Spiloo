@@ -1,0 +1,12 @@
+page-map {
+
+    #map {
+        height: 100%;
+    }
+
+    #floating-searchbar{
+        position: absolute;
+        
+        z-index: 5;
+    }
+}
