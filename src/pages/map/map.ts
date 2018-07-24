@@ -95,7 +95,8 @@ export class MapPage {
     this.mapService.getAddress(lat, long).subscribe(
       address => {
         console.log(address.results[0].formatted_address);
-        console.log(address.results[0].address_components[3].long_name);
+        console.log("cityname: " + address.results[0].address_components[3].long_name);
+        console.log("country: " + address.results[0].address_components[7].long_name);
         console.log(address);
         
       },
@@ -121,10 +122,8 @@ export class MapPage {
   }
 
   initAutocomplete(): void {
-    // reference : https://github.com/driftyco/ionic/issues/7223
     this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
     this.createAutocomplete(this.addressElement).subscribe((location) => {
-      console.log('Searchdata', location);
 
       let options = {
         center: location,
@@ -145,6 +144,7 @@ export class MapPage {
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
+          this.showAdress(place.geometry.location.lat(), place.geometry.location.lng());
           console.log('Search Lat', place.geometry.location.lat());
           console.log('Search Lng', place.geometry.location.lng());
           sub.next(place.geometry.location);
