@@ -30,7 +30,7 @@ import { GeocodingProvider } from '../providers/geocoding/geocoding';
     Geolocation,
     NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GeocodingProvider
+    GeocodingProvider,
   ]
 })
 export class AppModule {}
