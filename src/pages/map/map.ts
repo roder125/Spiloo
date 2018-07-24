@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GeocodingProvider } from '../../providers/geocoding/geocoding';
+import { Observable } from '../../../node_modules/rxjs/Observable';
 
 declare var google;
 
@@ -12,6 +13,8 @@ declare var google;
 export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  addressElement: HTMLInputElement = null;
   map: any;
   lat;
   long;
@@ -26,7 +29,8 @@ export class MapPage {
 
   ionViewDidLoad() {
     this.initMap();
-    let elem = <HTMLInputElement>document.getElementsByClassName('searchbar-input')[0];
+    this.initAutocomplete();
+    //let elem = <HTMLInputElement>document.getElementsByClassName('searchbar-input')[0];
     //this.autocomplete = new google.maps.places.Autocomplete(elem);
     
   }
@@ -114,5 +118,39 @@ export class MapPage {
     var lat =  location.lat();
     var lng = location.lng();
     console.log('Address Object', place);
-}
+  }
+
+  initAutocomplete(): void {
+    // reference : https://github.com/driftyco/ionic/issues/7223
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 10
+      };
+      this.map.setOptions(options);
+    });
+  }
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+          //sub.complete();
+        }
+      });
+    });
+  }
 }
