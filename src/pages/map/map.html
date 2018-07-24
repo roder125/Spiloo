@@ -24,6 +24,6 @@
     [(ngModel)]="address"
     (ionInput)="showPos()">
   </ion-searchbar>-->
-  <ion-searchbar id="floating-searchbar" #searchbar placeholder="Search"></ion-searchbar>
+  <ion-searchbar id="floating-searchbar" #searchbar placeholder="Search" [(ngModel)]="address"></ion-searchbar>
   <div #map id="map"></div>
 </ion-content>

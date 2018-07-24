@@ -94,7 +94,6 @@ export class MapPage {
   showAdress(lat, long){
     this.mapService.getAddress(lat, long).subscribe(
       address => {
-        console.log(address.results[0].formatted_address);
         console.log("cityname: " + address.results[0].address_components[3].long_name);
         console.log("country: " + address.results[0].address_components[7].long_name);
         console.log(address);
@@ -102,23 +101,6 @@ export class MapPage {
       },
       err => console.log("Error in getting the street address " + err)
     )
-  }
-
-  /**
-   * Just a test button
-   */
-  showPosName(){
-    this.showAdress(this.lat, this.long);
-  }
-
-  getAddress(place: Object) {
-    console.log("place")     
-    console.log(place)  
-    this.address = place['formatted_address'];
-    var location = place['geometry']['location'];
-    var lat =  location.lat();
-    var lng = location.lng();
-    console.log('Address Object', place);
   }
 
   initAutocomplete(): void {
@@ -144,11 +126,25 @@ export class MapPage {
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
-          this.showAdress(place.geometry.location.lat(), place.geometry.location.lng());
-          console.log('Search Lat', place.geometry.location.lat());
-          console.log('Search Lng', place.geometry.location.lng());
+          //this.showAdress(place.geometry.location.lat(), place.geometry.location.lng());
+          this.address = place.formatted_address;
+          console.log(place);
+          this.cityName = place.vicinity;
+          console.log(this.cityName);
+
+          console.log(place.photos[0].getUrl({'maxWidth': 1920, 'maxHeight': 1080}));
+          /*console.log(place)
+          var span : string = place.adr_address;
+          var re = /(["])locality">([A-Z])\w+/;
+      
+          var cityname = span.match(re);
+          console.log(cityname)
+
+          console.log("name= "+ cityname);*/
+
+          var geocoder = new google.maps.Geocoder();
+          this.geocodeAddress(geocoder, this.map)
           sub.next(place.geometry.location);
-          //sub.complete();
         }
       });
     });
