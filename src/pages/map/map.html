@@ -18,12 +18,12 @@
 ></ion-searchbar>-->
 
   <ion-searchbar 
-    id="floating-searchbar" 
+    id="floating-searchbar"
+    animated=true
+    debounce=800
     [(ngModel)]="address"
-    (ionChange)="showPos()">
+    (ionInput)="showPos()">
   </ion-searchbar>
 
   <div #map id="map"></div>
-
-  <button ion-button (click)="showPosName()">Position name</button>
 </ion-content>
