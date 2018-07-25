@@ -20,10 +20,9 @@ export class PlacesSearchbarComponent {
   addressElement: HTMLInputElement = null;
   lat;
   long;
-  cityName: string;
   autocomplete: any;
   address: string;
-  findLocation: boolean =  false;
+
   
   @Output() selectedPlace = new EventEmitter<any>();
 
@@ -46,34 +45,22 @@ export class PlacesSearchbarComponent {
   }
 
   /**
-   * Shows the Adress based on the Latitude and Longitude
-   * @param lat 
-   * @param long 
-   */
-  showAdress(lat, long){
-    this.mapService.getAddress(lat, long).subscribe(
-      address => {
-        console.log("cityname: " + address.results[0].address_components[3].long_name);
-        console.log("country: " + address.results[0].address_components[7].long_name);
-        console.log(address);
-        
-      },
-      err => console.log("Error in getting the street address " + err)
-    )
-  }
-
-  /**
    * Initialises the Autocomplete
    */
   initAutocomplete(): void {
     this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
     this.createAutocomplete(this.addressElement).subscribe((location) => {
-
+      
     });
   }
 
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
-    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+
+    var options = {
+      types: ['(cities)'],
+     };
+
+    const autocomplete = new google.maps.places.Autocomplete(addressEl, options);
  
     return new Observable((sub: any) => {
       google.maps.event.addListener(autocomplete, 'place_changed', () => {

@@ -5,7 +5,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home Page</ion-title>
+    <ion-title>Spiloo</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,11 +18,6 @@
   <ion-card *ngFor="let place of places" (click)="openPage('CityOverviewPage', place.name)">
     <img src={{place.imgUrl}} alt="no image atm">
     <div class="card-title">{{place.name}}</div>
-  </ion-card>
-
-  <ion-card (click)="openPage('CityOverviewPage', 'London')">
-    <img src="../../assets/imgs/London.jpg" alt="no image atm">
-    <div class="card-title">London</div>
   </ion-card>
 
   <ion-card (click)="openPage('CityOverviewPage', 'World')">

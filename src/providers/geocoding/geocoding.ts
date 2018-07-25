@@ -5,6 +5,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import 'rxjs/add/operator/map';
  
+declare var google;
 
 @Injectable()
 export class GeocodingProvider {
@@ -31,6 +32,33 @@ export class GeocodingProvider {
   getAddress(lat, long) {
     let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long;
     return this.GET(url);
+  }
+
+  reverseGeocode(lat, long){
+    var geocoder = new google.maps.Geocoder;
+    var latlng = {lat: lat, lng: long};
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      //console.log(results)
+    });
+  }
+
+  /**
+   * Not working compleatly correct
+   * @param lat 
+   * @param long 
+   */
+  getPlace(lat, long){
+    var latlng = {lat: lat, lng: long};
+    var service = new google.maps.places.PlacesService(document.createElement('div'));
+    service.nearbySearch({location: latlng, radius: 1, types: ['(cities)']}, (results) =>{
+      console.log(results[0])
+    });
+  }
+
+  getMorePlaceDetails(service, placeId){
+    service.getDetails({placeId: placeId}, (place)=>{
+      console.log("advanced place" + place)
+    })
   }
 
   getStreetAddress(lat, long) {
