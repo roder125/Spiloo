@@ -10,6 +10,20 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GeocodingProvider } from '../providers/geocoding/geocoding';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
+import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+
+export const environment = {
+  firebase: {
+    apiKey: "AIzaSyALamLWpOJQxNI-TD4v3BR_cerYXZbu7jM",
+    authDomain: "spiloo-7ad47.firebaseapp.com",
+    databaseURL: "https://spiloo-7ad47.firebaseio.com",
+    projectId: "spiloo-7ad47",
+    storageBucket: "spiloo-7ad47.appspot.com",
+    messagingSenderId: "807584151827"
+  }  
+};
 
 @NgModule({
   declarations: [
@@ -18,7 +32,9 @@ import { GeocodingProvider } from '../providers/geocoding/geocoding';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,6 +47,7 @@ import { GeocodingProvider } from '../providers/geocoding/geocoding';
     NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GeocodingProvider,
+    FirebaseServiceProvider,
   ]
 })
 export class AppModule {}
