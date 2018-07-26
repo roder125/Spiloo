@@ -57,7 +57,7 @@ export class PlacesSearchbarComponent {
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
 
     var options = {
-      types: ['(cities)'],
+      types: ['(regions)'],
      };
 
     const autocomplete = new google.maps.places.Autocomplete(addressEl, options);
@@ -70,6 +70,8 @@ export class PlacesSearchbarComponent {
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
+          console.log("regions: ")
+          console.log(place)
           this.selectedPlace.emit(place);
           sub.next(place.geometry.location);
         }

@@ -47,12 +47,9 @@ export class GeocodingProvider {
    * @param lat 
    * @param long 
    */
-  getPlace(lat, long){
-    var latlng = {lat: lat, lng: long};
+  getPlace(){
     var service = new google.maps.places.PlacesService(document.createElement('div'));
-    service.nearbySearch({location: latlng, radius: 1, types: ['(cities)']}, (results) =>{
-      console.log(results[0])
-    });
+    return service;
   }
 
   getMorePlaceDetails(service, placeId){
