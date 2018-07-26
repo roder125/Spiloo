@@ -20,9 +20,16 @@
     <div class="card-title">{{place.name}}</div>
   </ion-card>
 
+  <ion-card (click)="openPage('CityOverviewPage', 'Europe')">
+    <img src="../../assets/imgs/europa.jpg" alt="no image atm">
+    <div class="card-title">Europe</div>
+  </ion-card>
+
   <ion-card (click)="openPage('CityOverviewPage', 'World')">
     <img src="../../assets/imgs/World.jpg" alt="no image atm">
     <div class="card-title">World</div>
   </ion-card>
+
+  
 
 </ion-content>

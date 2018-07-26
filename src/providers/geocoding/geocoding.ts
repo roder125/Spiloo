@@ -4,6 +4,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import 'rxjs/add/operator/map';
+import { typeSourceSpan } from '../../../node_modules/@angular/compiler';
  
 declare var google;
 
@@ -37,8 +38,9 @@ export class GeocodingProvider {
   reverseGeocode(lat, long){
     var geocoder = new google.maps.Geocoder;
     var latlng = {lat: lat, lng: long};
+
     geocoder.geocode({'location': latlng}, function(results, status) {
-      //console.log(results)
+      console.log(results)
     });
   }
 

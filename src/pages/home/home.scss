@@ -13,5 +13,17 @@ page-home {
         font-weight: bold;
         color: #fff;
     }
+
+    img {
+        //position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width:  100%;
+        height: 25vh;
+        //background-position: 50% 50%;
+        //background-repeat:   no-repeat;
+        //size:     cover;
+    }
     
 }

@@ -35,23 +35,33 @@ export class HomePage {
       this.lat = position.coords.latitude;
       this.long = position.coords.longitude;
       var latlng = {lat: this.lat, lng: this.long};
-      //this.geoCoderService.reverseGeocode(this.lat, this.long);
-      //var latlng = {lat: 50.737430, lng: 7.098207};
+      //this.geoCoderService.reverseGeocode(this.lat, this.long);    
+      //var latlng = {lat: 45.426451, lng: 13.948507}; 
       var service = this.geoCoderService.getPlace();
       //retruns a place from google places api reduced to the city (locality)
-      service.nearbySearch({location: latlng, radius: 1, types: ["locality", "country"]}, (results) =>{
+      service.nearbySearch({location: latlng, radius: 1, types: []}, (results) =>{
         if(results.length == 0){
-
+          //alert("Problems with finding your position " + latlng)
           console.log("Problems with finding your position")
         }
         else{
-          var place = results[0];
-          this.fillLocationArray(place);   
+          if(results[0].vicinity == undefined || results[0].photos == undefined){
+            service.nearbySearch({location: latlng, radius: 1, types: ["locality"]}, (results) =>{
+              console.log(results)
+              var place = results[0];        
+              this.fillLocationArray(place);   
+            });
+          }
+          else if(results[0].vicinity != undefined && results[0].photos.length != 0){
+            console.log("im else")
+            var place = results[0];
+            this.fillLocationArray(place);   
+          }   
         }            
       });
     })
-    .catch(e =>{
-      console.log(e);
+    .catch(PositionError =>{
+      alert(PositionError.message)
     })
     
   }
@@ -90,19 +100,34 @@ export class HomePage {
   }
 
   fillLocationArray(place){
+    var photo: number = 0;
     if(place.vicinity == undefined){
-      this.place = {
-        name : place.name,
-        imgUrl : place.photos[0].getUrl({'maxWidth': 1920, 'maxHeight': 1080})
-      };
+      if(place.photos == undefined){
+        this.place = {
+          name : place.name,
+        };
+      }
+      else{
+        this.place = {
+          name : place.name,
+          imgUrl : place.photos[photo].getUrl({'maxWidth': 1920, 'maxHeight': 1080})
+        };
+      }    
     }
     else{
-      this.place = {
-        name : place.vicinity,
-        imgUrl : place.photos[0].getUrl({'maxWidth': 1920, 'maxHeight': 1080})
-      };
+      if(place.photos == undefined){
+        this.place = {
+          name : place.name,
+        };
+      }
+      else{
+        this.place = {
+          name : place.vicinity,
+          imgUrl : place.photos[photo].getUrl({'maxWidth': 1920, 'maxHeight': 1080})
+        };
+      }
     }
-
+    
     if(this.places.length >= 1){
       this.places.splice(0, 1, this.place);
     }
@@ -110,5 +135,4 @@ export class HomePage {
       this.places.push(this.place);
     }
   }
-
 }
