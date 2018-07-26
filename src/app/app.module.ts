@@ -13,17 +13,7 @@ import { GeocodingProvider } from '../providers/geocoding/geocoding';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
-
-export const environment = {
-  firebase: {
-    apiKey: "AIzaSyALamLWpOJQxNI-TD4v3BR_cerYXZbu7jM",
-    authDomain: "spiloo-7ad47.firebaseapp.com",
-    databaseURL: "https://spiloo-7ad47.firebaseio.com",
-    projectId: "spiloo-7ad47",
-    storageBucket: "spiloo-7ad47.appspot.com",
-    messagingSenderId: "807584151827"
-  }  
-};
+import { FIREBASE_CONFIG }  from '../app/firebase.credentials'
 
 @NgModule({
   declarations: [
@@ -33,7 +23,7 @@ export const environment = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
   ],
   bootstrap: [IonicApp],
