@@ -11,13 +11,13 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="content">
 
   <label class="uploader" *ngIf="!picture" (click)="captureMedia()">                   
     <ion-icon name="add"></ion-icon>
   </label>
 
-  <ion-slides *ngIf="picture">
+  <ion-slides class="imgSlide" *ngIf="picture">
     <ion-slide *ngFor="let image of imageArray">
       <img [src]="_DomSanitizer.bypassSecurityTrustUrl(image)"/>
     </ion-slide>
