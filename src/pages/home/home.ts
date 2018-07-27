@@ -25,82 +25,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.getCurrentPosition();
-  }
-
-  /**
-   * Gets the current position of the user and trys to display it
-   */
-  getCurrentPosition(){
-    this.position = this.geoCoderService.getCurrentPosition()
-    .then(position =>{
-      this.lat = position.coords.latitude;
-      this.long = position.coords.longitude;
-
-      var latlng = {lat: 40.678178, lng: -73.944158};
-      var geocoder = this.geoCoderService.reverseGeocode();  
-      geocoder.geocode({'location': latlng}, (results, status) => {
-        if(status == "OK"){
-          console.log(results);
-          this.results = results;
-          console.log(results[0])
-          for(var i = 0; i < this.results.length -1; i++){
-            var types = this.results[i].types;
-
-            if(types.includes("route") || types.includes("street_address")|| types.includes("premise")){
-              this.results.splice(i, 1);
-              console.log(this.results)
-              i--;
-            }
-            else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1") || types.includes("sublocality_level_2")){
-              this.address.cityname = this.results[i].formatted_address;
-              console.log("types =  " + types)
-              console.log(this.address.cityname)
-              return      
-            }
-            else if(types.includes("political") || types.includes("locality") || types.includes("sublocality") || types.includes("sublocality_level_1")){
-              this.address.cityname = this.results[i].formatted_address;
-              console.log("types = all " + types)
-              console.log(this.address.cityname)
-            }
-            else{
-              this.address.cityname = this.results[i].formatted_address;
-              console.log("types =  rest:" + types)
-              console.log(this.address.cityname)    
-            }
-            
-          }
-        }
-      });  
-
-      /*
-      //var latlng = {lat: 45.426451, lng: 13.948507}; 
-      var service = this.geoCoderService.getPlace();
-      //retruns a place from google places api reduced to the city (locality)
-      service.nearbySearch({location: latlng, radius: 1, types: []}, (results) =>{
-        if(results.length == 0){
-          //alert("Problems with finding your position " + latlng)
-          console.log("Problems with finding your position")
-        }
-        else{
-          if(results[0].vicinity == undefined || results[0].photos == undefined){
-            service.nearbySearch({location: latlng, radius: 1, types: ["locality"]}, (results) =>{
-              console.log(results)
-              var place = results[0];        
-              this.fillLocationArray(place);   
-            });
-          }
-          else if(results[0].vicinity != undefined && results[0].photos.length != 0){
-            console.log("im else")
-            var place = results[0];
-            this.fillLocationArray(place);   
-          }   
-        }            
-      });*/
-    })
-    .catch(PositionError =>{
-      alert(PositionError.message)
-    })
+    //this.getCurrentPosition();
     
   }
 
@@ -132,6 +57,13 @@ export class HomePage {
   }
 
   /**
+   * Get the current Position from the Component
+   */
+  getCurrenPosition(address){
+    console.log("Home " + address)
+  }
+
+  /**
    * Gets the selected Place from the PlaceSearchComponent
    * @param place 
    */
@@ -139,7 +71,6 @@ export class HomePage {
     this.address = place.formatted_address;
     this.cityName = place.vicinity;
     this.fillLocationArray(place);
-
   }
 
   fillLocationArray(place){

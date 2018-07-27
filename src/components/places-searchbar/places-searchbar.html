@@ -1,2 +1,2 @@
 
-<ion-searchbar id="floating-searchbar" #searchbar placeholder="Search" [(ngModel)]="address" placeholder="Search for locations"></ion-searchbar>
+<ion-searchbar id="floating-searchbar" #searchbar placeholder="{{this.address.cityname}}" [(ngModel)]="this.address.cityname" placeholder="Search for locations"></ion-searchbar>
