@@ -61,6 +61,23 @@ export class HomePage {
    */
   getCurrenPosition(address){
     console.log("Home " + address)
+    this.address.fullAddress = address;
+    var addressSplitArray = this.address.fullAddress.split(",");
+    console.log(addressSplitArray);
+    if(addressSplitArray.length == 3){
+      this.address.district = addressSplitArray[0];
+      this.address.cityname = addressSplitArray[1];
+      this.address.country = addressSplitArray[2];
+    }
+    else{
+      this.address.district = ""
+      this.address.cityname = addressSplitArray[0];
+      this.address.country = addressSplitArray[1];
+    }  
+    
+    console.log("district " + this.address.district)
+    console.log("name " +this.address.cityname)
+    console.log("country " +this.address.country)
   }
 
   /**

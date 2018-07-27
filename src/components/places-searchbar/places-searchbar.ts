@@ -36,8 +36,8 @@ export class PlacesSearchbarComponent {
 
   viewUpdate(address){
     this.zone.run(() => {
-      this.address.cityname = address;
-      this.currentPosition.emit(this.address.cityname);
+      this.address.fullAddress = address;
+      this.currentPosition.emit(this.address.fullAddress);
     });
   }
   /**
@@ -49,7 +49,7 @@ export class PlacesSearchbarComponent {
     this.lat = position.coords.latitude;
     this.long = position.coords.longitude;
 
-    var latlng = {lat: 40.678178, lng: -73.944158};
+    var latlng = {lat: 45.815011, lng: 15.981919};
     var geocoder = this.mapService.reverseGeocode();  
     geocoder.geocode({'location': latlng}, (results, status) => {
       if(status == "OK"){
