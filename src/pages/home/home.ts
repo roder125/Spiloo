@@ -17,6 +17,7 @@ export class HomePage {
   address: string;
   places = [];
   place: any;
+  results = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private geoCoderService: GeocodingProvider) {
    
@@ -34,8 +35,25 @@ export class HomePage {
     .then(position =>{
       this.lat = position.coords.latitude;
       this.long = position.coords.longitude;
-      var latlng = {lat: this.lat, lng: this.long};
-      //this.geoCoderService.reverseGeocode(this.lat, this.long);    
+
+      var latlng = {lat: 50.871359, lng: 7.071990};
+      var geocoder = this.geoCoderService.reverseGeocode();  
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        if(status == "OK"){
+          this.results = results;
+          for(var i = 0; i < this.results.length; i++){
+            var types = this.results[i].types;
+            if(types.includes("route")){
+              this.results.splice(i, 1);
+            }
+            else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1")){
+              console.log(this.results[i])
+            }
+          }
+        }
+      });  
+
+      /*
       //var latlng = {lat: 45.426451, lng: 13.948507}; 
       var service = this.geoCoderService.getPlace();
       //retruns a place from google places api reduced to the city (locality)
@@ -58,7 +76,7 @@ export class HomePage {
             this.fillLocationArray(place);   
           }   
         }            
-      });
+      });*/
     })
     .catch(PositionError =>{
       alert(PositionError.message)

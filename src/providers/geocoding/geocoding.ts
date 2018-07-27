@@ -35,13 +35,9 @@ export class GeocodingProvider {
     return this.GET(url);
   }
 
-  reverseGeocode(lat, long){
+  reverseGeocode(){
     var geocoder = new google.maps.Geocoder;
-    var latlng = {lat: lat, lng: long};
-
-    geocoder.geocode({'location': latlng}, function(results, status) {
-      console.log(results)
-    });
+    return geocoder;
   }
 
   /**
