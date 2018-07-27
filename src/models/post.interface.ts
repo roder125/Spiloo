@@ -1,6 +1,6 @@
 
 /**
- * An Interface for the Post Object
+ * An Interface for a Post
  */
 export interface Post{
 

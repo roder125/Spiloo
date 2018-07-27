@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Post } from "../../models/post.interface"
 
 @Injectable()
 export class FirebaseServiceProvider {
 
   private postListRef$ = this.db.list<any>('post-list');
+  post = {} as Post;
 
   constructor(private db: AngularFireDatabase) {
    
@@ -13,7 +15,7 @@ export class FirebaseServiceProvider {
   /**
    * Creates a Post in the Database
    */
-  createPost(post){
+  createPost(post: Post){
     return this.postListRef$.push({
       post: post
     });

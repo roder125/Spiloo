@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>New Post</ion-title>
+    <ion-buttons end>
+      <button end ion-button color="primary" clear (click)="addPost()">Save</button>
+    </ion-buttons>   
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <label class="uploader">                   
+    <ion-icon name="add"></ion-icon>
+  </label>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Titel</ion-label>
+        <ion-input class="title" type="text" [(ngModel)]="post.title" autocomplete="on" autocorrect="on"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description, {{textLeft}} letter left</ion-label>
+        <ion-textarea rows="7" maxLength="100" type="text" [(ngModel)]="post.content" (ionChange)='textCounter()' autocomplete="on" autocorrect="on"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  
+</ion-content>

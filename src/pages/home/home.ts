@@ -83,9 +83,14 @@ export class HomePage {
   }
 
   openPage(pageName: string, location: string){
-    this.navCtrl.push(pageName,{
+    if(pageName == "AddPostPage"){
+      this.navCtrl.push(pageName);
+    }
+    else{
+      this.navCtrl.push(pageName,{
       location: location
     });
+    } 
   }
 
   /**
