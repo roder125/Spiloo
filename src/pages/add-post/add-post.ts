@@ -12,6 +12,7 @@ import { Post } from '../../models/post.interface';
 export class AddPostPage {
 
   post =  {} as Post;
+  tags = [];
   textLeft = 100;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbService: FirebaseServiceProvider) {
@@ -21,8 +22,12 @@ export class AddPostPage {
    
   }
 
+  /**
+   * Adds a Post to the Database
+   * @param post 
+   */
   addPost(post: Post){
-
+    console.log(post)
   }
 
    /**
@@ -31,5 +36,13 @@ export class AddPostPage {
   textCounter(){
     var maxLen = 100;
     this.textLeft = maxLen - this.post.content.length;
+  }
+
+  /**
+   * When a Tag is addeted or deleted
+   * @param val 
+   */
+  onTagChange(val){
+    this.post.tags = val;
   }
 }

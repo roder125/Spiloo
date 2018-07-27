@@ -31,4 +31,6 @@ export interface Post{
     chatDuration: number;
     postOpened: number;
     mood: number;
+    mediaArray; //Array
+    downloadUrls; // Array
 }

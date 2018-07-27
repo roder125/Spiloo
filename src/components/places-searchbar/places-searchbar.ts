@@ -49,7 +49,7 @@ export class PlacesSearchbarComponent {
     this.lat = position.coords.latitude;
     this.long = position.coords.longitude;
 
-    var latlng = {lat: 45.815011, lng: 15.981919};
+    var latlng = {lat: this.lat, lng: this.long};
     var geocoder = this.mapService.reverseGeocode();  
     geocoder.geocode({'location': latlng}, (results, status) => {
       if(status == "OK"){

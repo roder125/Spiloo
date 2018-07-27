@@ -13,7 +13,9 @@ import { GeocodingProvider } from '../providers/geocoding/geocoding';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
-import { FIREBASE_CONFIG }  from '../app/firebase.credentials'
+import { FIREBASE_CONFIG }  from '../app/firebase.credentials';
+import { IonTagsInputModule } from "ionic-tags-input";
+
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { FIREBASE_CONFIG }  from '../app/firebase.credentials'
     HttpModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
+    IonTagsInputModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

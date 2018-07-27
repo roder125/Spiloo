@@ -4,7 +4,7 @@
   <ion-navbar color="dark">
     <ion-title>New Post</ion-title>
     <ion-buttons end>
-      <button end ion-button color="primary" clear (click)="addPost()">Save</button>
+      <button end ion-button color="primary" clear (click)="addPost(post)">Save</button>
     </ion-buttons>   
   </ion-navbar>
 
@@ -15,6 +15,7 @@
   <label class="uploader">                   
     <ion-icon name="add"></ion-icon>
   </label>
+  <div *ngIf="post.mediaArray"></div>
 
   <ion-card>
     <ion-list>
@@ -26,6 +27,10 @@
         <ion-label floating>Description, {{textLeft}} letter left</ion-label>
         <ion-textarea rows="7" maxLength="100" type="text" [(ngModel)]="post.content" (ionChange)='textCounter()' autocomplete="on" autocorrect="on"></ion-textarea>
       </ion-item>
+      <ion-item>
+        <ion-tags-input [color]="'dark'" [type]="'email'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
+      </ion-item>
+      
     </ion-list>
   </ion-card>
   
