@@ -22,7 +22,7 @@ export interface Post{
     badCount: number;
     goodCount: number;
     views: number;
-    tags: string;
+    tags; //Array
     language: string;
     commentsCount: number;
     sharesCount: number;
@@ -31,6 +31,5 @@ export interface Post{
     chatDuration: number;
     postOpened: number;
     mood: number;
-    mediaArray; //Array
     downloadUrls; // Array
 }

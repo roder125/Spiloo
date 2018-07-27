@@ -12,10 +12,16 @@
 
 
 <ion-content padding>
-  <label class="uploader">                   
+
+  <label class="uploader" *ngIf="!picture" (click)="captureMedia()">                   
     <ion-icon name="add"></ion-icon>
   </label>
-  <div *ngIf="post.mediaArray"></div>
+
+  <ion-slides *ngIf="picture">
+    <ion-slide *ngFor="let image of imageArray">
+      <img [src]="_DomSanitizer.bypassSecurityTrustUrl(image)"/>
+    </ion-slide>
+  </ion-slides>
 
   <ion-card>
     <ion-list>
@@ -27,9 +33,8 @@
         <ion-label floating>Description, {{textLeft}} letter left</ion-label>
         <ion-textarea rows="7" maxLength="100" type="text" [(ngModel)]="post.content" (ionChange)='textCounter()' autocomplete="on" autocorrect="on"></ion-textarea>
       </ion-item>
-      <ion-item>
-        <ion-tags-input [color]="'dark'" [type]="'email'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
-      </ion-item>
+
+      <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'email'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
       
     </ion-list>
   </ion-card>

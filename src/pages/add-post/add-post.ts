@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { Post } from '../../models/post.interface';
+import { CameraServiceProvider } from '../../providers/camera-service/camera-service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @IonicPage()
@@ -14,8 +16,11 @@ export class AddPostPage {
   post =  {} as Post;
   tags = [];
   textLeft = 100;
+  imageArray = [];
+  picture: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dbService: FirebaseServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dbService: FirebaseServiceProvider, 
+              private cameraService: CameraServiceProvider, public _DomSanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -27,7 +32,8 @@ export class AddPostPage {
    * @param post 
    */
   addPost(post: Post){
-    console.log(post)
+    console.log(post);
+    //this.dbService.createPost(post);
   }
 
    /**
@@ -38,11 +44,31 @@ export class AddPostPage {
     this.textLeft = maxLen - this.post.content.length;
   }
 
+  captureMedia(){
+    this.cameraService.takePicture()
+      .then((imageData)=>{
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.imageArray.push(base64Image);
+        this.picture = true; 
+      })
+      .catch(e=>{
+        alert(e.message)
+      })
+  }
+
   /**
    * When a Tag is addeted or deleted
    * @param val 
    */
   onTagChange(val){
-    this.post.tags = val;
+    var tmpArray = [];
+    val.forEach((el: string) =>{
+      var str = el.replace(/\s/g, "") 
+      tmpArray.push(str)
+    });
+
+    this.tags = tmpArray;
+    this.post.tags = this.tags;
   }
+
 }

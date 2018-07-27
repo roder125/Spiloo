@@ -15,6 +15,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/dat
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { FIREBASE_CONFIG }  from '../app/firebase.credentials';
 import { IonTagsInputModule } from "ionic-tags-input";
+import { CameraServiceProvider } from '../providers/camera-service/camera-service';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { IonTagsInputModule } from "ionic-tags-input";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GeocodingProvider,
     FirebaseServiceProvider,
+    CameraServiceProvider,
+    Camera
   ]
 })
 export class AppModule {}
