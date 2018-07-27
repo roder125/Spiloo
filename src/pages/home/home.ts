@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GeocodingProvider } from '../../providers/geocoding/geocoding';
+import { Address } from '../../models/address.interface';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ export class HomePage {
   long: any;
   cityName: string;
   autocomplete: any;
-  address: string;
+  address = {} as Address;
   places = [];
   place: any;
   results = [];
@@ -36,19 +37,38 @@ export class HomePage {
       this.lat = position.coords.latitude;
       this.long = position.coords.longitude;
 
-      var latlng = {lat: 50.871359, lng: 7.071990};
+      var latlng = {lat: 40.678178, lng: -73.944158};
       var geocoder = this.geoCoderService.reverseGeocode();  
-      geocoder.geocode({'location': latlng}, function(results, status) {
+      geocoder.geocode({'location': latlng}, (results, status) => {
         if(status == "OK"){
+          console.log(results);
           this.results = results;
-          for(var i = 0; i < this.results.length; i++){
+          console.log(results[0])
+          for(var i = 0; i < this.results.length -1; i++){
             var types = this.results[i].types;
-            if(types.includes("route")){
+
+            if(types.includes("route") || types.includes("street_address")|| types.includes("premise")){
               this.results.splice(i, 1);
+              console.log(this.results)
+              i--;
             }
-            else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1")){
-              console.log(this.results[i])
+            else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1") || types.includes("sublocality_level_2")){
+              this.address.cityname = this.results[i].formatted_address;
+              console.log("types =  " + types)
+              console.log(this.address.cityname)
+              return      
             }
+            else if(types.includes("political") || types.includes("locality") || types.includes("sublocality") || types.includes("sublocality_level_1")){
+              this.address.cityname = this.results[i].formatted_address;
+              console.log("types = all " + types)
+              console.log(this.address.cityname)
+            }
+            else{
+              this.address.cityname = this.results[i].formatted_address;
+              console.log("types =  rest:" + types)
+              console.log(this.address.cityname)    
+            }
+            
           }
         }
       });  
