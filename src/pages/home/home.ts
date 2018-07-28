@@ -47,12 +47,14 @@ export class HomePage {
 
   openPage(pageName: string, location: string){
     if(pageName == "AddPostPage"){
-      this.navCtrl.push(pageName);
+      this.navCtrl.push(pageName,{
+        address: this.address
+      });
     }
     else{
       this.navCtrl.push(pageName,{
-      location: location
-    });
+        location: location
+      });
     } 
   }
 

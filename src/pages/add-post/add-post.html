@@ -30,11 +30,25 @@
         <ion-input class="title" type="text" [(ngModel)]="post.title" autocomplete="on" autocorrect="on"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Description, {{textLeft}} letter left</ion-label>
+        <ion-label floating>Description, {{textLeft}} letters left</ion-label>
         <ion-textarea rows="7" maxLength="100" type="text" [(ngModel)]="post.content" (ionChange)='textCounter()' autocomplete="on" autocorrect="on"></ion-textarea>
       </ion-item>
-
-      <ion-searchbar placeholder="set Location"></ion-searchbar>
+      <ion-item-divider color="dark" class="itemDivider">
+        Location information
+      </ion-item-divider>
+      
+      <ion-item>
+        <ion-label floating>District</ion-label>
+        <ion-input type="text" [(ngModel)]="address.district" autocomplete="on" autocorrect="on"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Cityname</ion-label>
+        <ion-input type="text" [(ngModel)]="address.cityname" autocomplete="on" autocorrect="on"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Country</ion-label>
+        <ion-input type="text" [(ngModel)]="address.country" autocomplete="on" autocorrect="on"></ion-input>
+      </ion-item>
 
       <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'text'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
           

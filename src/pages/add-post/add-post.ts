@@ -4,6 +4,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { Post } from '../../models/post.interface';
 import { CameraServiceProvider } from '../../providers/camera-service/camera-service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { Address } from '../../models/address.interface';
 
 
 @IonicPage()
@@ -18,9 +19,13 @@ export class AddPostPage {
   textLeft = 100;
   imageArray = [];
   picture: boolean = false;
+  address = {} as Address;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbService: FirebaseServiceProvider, 
               private cameraService: CameraServiceProvider, public _DomSanitizer: DomSanitizer) {
+                
+      this.address = navParams.get("address");
+      console.log(this.address);
   }
 
   ionViewDidLoad() {
