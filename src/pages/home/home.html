@@ -15,6 +15,7 @@
 
   <places-searchbar (selectedPlace)=getSelectedPlace($event) (currentPosition)=getCurrenPosition($event)></places-searchbar>
 
+  <!--
   <ion-card *ngFor="let place of places" (click)="openPage('CityOverviewPage', place.name)">
     <img src={{place.imgUrl}} alt="no image atm">
     <div class="card-title">{{place.name}}</div>
@@ -28,7 +29,7 @@
   <ion-card (click)="openPage('CityOverviewPage', 'World')">
     <img src="../../assets/imgs/World.jpg" alt="no image atm">
     <div class="card-title">World</div>
-  </ion-card>
+  </ion-card>-->
 
   <ion-buttons end class="btnPos">
     <button ion-fab color="primary" (click)="openPage('AddPostPage', '')">

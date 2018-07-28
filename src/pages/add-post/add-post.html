@@ -34,8 +34,10 @@
         <ion-textarea rows="7" maxLength="100" type="text" [(ngModel)]="post.content" (ionChange)='textCounter()' autocomplete="on" autocorrect="on"></ion-textarea>
       </ion-item>
 
-      <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'email'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
-      
+      <ion-searchbar placeholder="set Location"></ion-searchbar>
+
+      <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'text'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
+          
     </ion-list>
   </ion-card>
   

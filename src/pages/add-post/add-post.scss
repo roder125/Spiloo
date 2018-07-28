@@ -22,10 +22,13 @@ page-add-post {
       }
 
       .imgSlide{
-        margin-top: 0px;
-        height: 50vh;
-        width: 100%;
-        object-fit: cover;
+        position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 40vh;
+        width: 90%;
+        //object-fit: cover;
         overflow: hidden;   
       }
 
