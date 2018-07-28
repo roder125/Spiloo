@@ -12,6 +12,10 @@ import { Address } from '../../models/address.interface';
   selector: 'page-add-post',
   templateUrl: 'add-post.html',
 })
+/**
+ * Chzanged Keybord behaviour in  AndroidManifest.xml
+ * https://forum.ionicframework.com/t/change-android-keyboard-behaviors-for-the-whole-app/83610 
+ */
 export class AddPostPage {
 
   post =  {} as Post;
@@ -23,7 +27,7 @@ export class AddPostPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dbService: FirebaseServiceProvider, 
               private cameraService: CameraServiceProvider, public _DomSanitizer: DomSanitizer) {
-                
+
       this.address = navParams.get("address");
       console.log(this.address);
   }
