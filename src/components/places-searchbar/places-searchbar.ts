@@ -44,7 +44,7 @@ export class PlacesSearchbarComponent {
    * Gets the current position of the user and trys to display it
   */
  getCurrentPosition(){
-  this.position = this.mapService.getCurrentPosition()
+  this.position = this.mapService.getCurrentPositionLatLong()
   .then(position =>{
     this.lat = position.coords.latitude;
     this.long = position.coords.longitude;

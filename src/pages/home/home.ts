@@ -26,7 +26,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     //this.getCurrentPosition();
-    
+    this.getPos();
   }
 
   /**
@@ -58,9 +58,22 @@ export class HomePage {
     } 
   }
 
+  getPos(){
+    this.position = this.geoCoderService.getCurrentPositionLatLong()
+      .then((position)=>{
+        this.lat = position.coords.latitude;
+        this.long = position.coords.longitude;
+        this.geoCoderService.getCurrentPosition(this.lat, this.long);
+      })
+      .catch(e =>{
+        console.log(e.message)
+      })
+    
+  }
+
   /**
    * Get the current Position from the Component
-   */
+   
   getCurrenPosition(address){
     console.log("Home " + address)
     this.address.fullAddress = address;
@@ -80,7 +93,7 @@ export class HomePage {
     console.log("district " + this.address.district)
     console.log("name " +this.address.cityname)
     console.log("country " +this.address.country)
-  }
+  }*/
 
   /**
    * Gets the selected Place from the PlaceSearchComponent
