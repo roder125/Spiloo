@@ -76,7 +76,7 @@ export class MapPage {
    * gets the current Position
    */
   getCurrentPosition(){
-    this.mapService.getCurrentPosition()
+    this.mapService.getCurrentPositionLatLong()
     .then(position =>{
       this.lat = position.coords.latitude;
       this.long = position.coords.longitude;

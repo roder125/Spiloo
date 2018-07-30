@@ -44,8 +44,7 @@ export class AddPostPage {
     this.post.city = this.address.cityname;
     this.post.country = this.address.country;
     this.post.created = this.getDate();
-    
-    this.navCtrl.pop();
+  
     this.dbService.createPost(post)
       .then(data =>{
         this.navCtrl.pop();
@@ -92,16 +91,18 @@ export class AddPostPage {
    */
   getDate(){
     var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var ddDate = today.getDate();
+    var ddString = ddDate.toString();
+    var mmDate = today.getMonth()+1; //January is 0!
+    var mmString = mmDate.toString();
     var yyyy = today.getFullYear(); 
-    if(dd<10) {
-        dd = '0'+dd
+    if(ddDate<10) {
+      ddString = '0'+ddString
     }    
-    if(mm<10) {
-        mm = '0'+mm
+    if(mmDate<10) {
+      mmString = '0'+mmString
     } 
-    return dd + '.' + mm + '.' + yyyy;
+    return ddString + '.' + mmString + '.' + yyyy;
   }
 
 }
