@@ -12,9 +12,10 @@ export interface Post{
     fileName: string;
     // link to multimedia
     link: string;
-    created: Date;
+    created: string;
     modified: Date;
     country: string;
+    district: string;
     city: string;
     //Neighbourhood
     vicinity: string;

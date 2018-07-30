@@ -7,4 +7,5 @@ export interface Address{
     cityname: string;
     district: string;
     country: string;
+    vincinitys: string;
 }

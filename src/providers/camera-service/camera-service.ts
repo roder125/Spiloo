@@ -18,8 +18,8 @@ export class CameraServiceProvider {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      saveToPhotoAlbum: true,
-      allowEdit: true
+      //saveToPhotoAlbum: true,
+      //allowEdit: true
     }
     return this.camera.getPicture(options);
   }

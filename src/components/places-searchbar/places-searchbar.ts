@@ -37,7 +37,7 @@ export class PlacesSearchbarComponent {
   viewUpdate(address){
     this.zone.run(() => {
       this.address.fullAddress = address.formatted_address;
-      this.currentPosition.emit(this.address.fullAddress);
+      this.currentPosition.emit(address);
     });
   }
   /**
@@ -104,15 +104,14 @@ export class PlacesSearchbarComponent {
    */
   initAutocomplete(): void {
     this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-    this.createAutocomplete(this.addressElement).subscribe((location) => {
-      
+    this.createAutocomplete(this.addressElement).subscribe((location) => {    
     });
   }
 
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
 
     var options = {
-      types: ['(regions)'],
+      types: ['(cities)'],
      };
 
     const autocomplete = new google.maps.places.Autocomplete(addressEl, options);
@@ -120,12 +119,13 @@ export class PlacesSearchbarComponent {
     return new Observable((sub: any) => {
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         const place = autocomplete.getPlace();
+        console.log(place)
         if (!place.geometry) {
           sub.error({
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
-          this.selectedPlace.emit(place.formatted_address);
+          this.selectedPlace.emit(place);
           sub.next(place.geometry.location);
         }
       });

@@ -42,7 +42,7 @@ export class HomePage {
 
   /**
    * Get the current Position from the Component
-   * regEx: ([\w ]*)(, )?([\w ]*), ([a-zA-Z ]*)
+   * 
    */
   getCurrenPosition(address){
     this.fillAddressObject(address);    
@@ -55,12 +55,14 @@ export class HomePage {
   getSelectedPlace(address){
     this.fillAddressObject(address);
   }
-
+  /**
+   * regEx: ([\w ]*)(, )?([\w ]*), ([a-zA-Z ]*)
+   * @param address 
+   */
   fillAddressObject(address){
-    var results = /([\w ]*)(, )?([\w ]*),([\w ]*)/.exec(address);
-    console.log(address)
-    console.log(results)
+    var results = /([\w ]*)(, )?([\w ]*),([\w ]*)/.exec(address.formatted_address);
     if(results[3] == ""){
+      this.address.district = "",
       this.address.cityname = results[1],
       this.address.country = results[4]    
     }
@@ -69,7 +71,6 @@ export class HomePage {
       this.address.cityname = results[3],
       this.address.country = results[4]
     }
-    console.log(this.address)
   }
 
   /*

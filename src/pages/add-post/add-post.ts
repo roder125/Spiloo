@@ -32,7 +32,7 @@ export class AddPostPage {
   }
 
   ionViewDidLoad() {
-   
+    
   }
 
   /**
@@ -40,9 +40,16 @@ export class AddPostPage {
    * @param post 
    */
   addPost(post: Post){
-    console.log(post);
+    this.post.district = this.address.district;
+    this.post.city = this.address.cityname;
+    this.post.country = this.address.country;
+    this.post.created = this.getDate();
+    
     this.navCtrl.pop();
-    //this.dbService.createPost(post);
+    this.dbService.createPost(post)
+      .then(data =>{
+        this.navCtrl.pop();
+      })
   }
 
    /**
@@ -78,6 +85,23 @@ export class AddPostPage {
 
     this.tags = tmpArray;
     this.post.tags = this.tags;
+  }
+
+  /**
+   * Creates the current Date
+   */
+  getDate(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear(); 
+    if(dd<10) {
+        dd = '0'+dd
+    }    
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+    return dd + '.' + mm + '.' + yyyy;
   }
 
 }
