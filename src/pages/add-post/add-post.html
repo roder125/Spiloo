@@ -24,6 +24,7 @@
   </ion-slides>
 
   <ion-card>
+    <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'text'" [mode]="'md'" [once]="'true'" [placeholder]="'add tag'" (onChange)="onTagChange($event)"></ion-tags-input>
     <ion-list>
       <ion-item>
         <ion-label floating>Titel</ion-label>
@@ -48,10 +49,7 @@
       <ion-item>
         <ion-label floating>Country</ion-label>
         <ion-input type="text" [(ngModel)]="address.country" autocomplete="on" autocorrect="on"></ion-input>
-      </ion-item>
-
-      <ion-tags-input [(ngModel)]="tags" [color]="'dark'" [type]="'text'" [mode]="'md'" [once]="'true'" [placeholder]="'add tags'" (onChange)="onTagChange($event)"></ion-tags-input>
-          
+      </ion-item>      
     </ion-list>
   </ion-card>
   
