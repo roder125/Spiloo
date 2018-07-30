@@ -58,6 +58,8 @@ export class HomePage {
 
   fillAddressObject(address){
     var results = /([\w ]*)(, )?([\w ]*),([\w ]*)/.exec(address);
+    console.log(address)
+    console.log(results)
     if(results[3] == ""){
       this.address.cityname = results[1],
       this.address.country = results[4]    
