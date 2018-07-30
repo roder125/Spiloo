@@ -10,7 +10,6 @@ import { Address } from '../../models/address.interface';
 })
 export class HomePage {
 
-  position;
   lat: any;
   long: any;
   cityName: string;
@@ -71,6 +70,7 @@ export class HomePage {
     console.log(this.address)
   }
 
+  /*
   fillLocationArray(place){
     var photo: number = 0;
     if(place.vicinity == undefined){
@@ -106,5 +106,5 @@ export class HomePage {
     else{
       this.places.push(this.place);
     }
-  }
+  }*/
 }
