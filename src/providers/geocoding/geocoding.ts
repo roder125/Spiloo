@@ -36,51 +36,6 @@ export class GeocodingProvider {
     return this.geolocation.getCurrentPosition(options);    
   }
 
-  getCurrentPosition(lat, lng){
-    var latlng = {lat: 51.032662, lng: 7.117148}
-    var geocoder = this.reverseGeocode();  
-    geocoder.geocode({'location': latlng}, (results, status) => {
-      if(status == "OK"){
-        this.results = results;
-        for(var i = 0; i < this.results.length -1; i++){
-          var types = this.results[i].types;
-
-          if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1")|| types.includes("sublocality_level_2")){
-            console.log(types);
-            console.log(results[i]);
-            return
-          }
-          else if(types.includes("political") && types.includes("locality")){
-            console.log(types);
-            console.log(results[i]);
-          }
-          else{
-            console.log("No gut results " + types )
-          }
-          
-          /*
-          if(types.includes("route") || types.includes("street_address")|| types.includes("premise")){
-            this.results.splice(i, 1);
-            i--;
-          }
-          else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1") || types.includes("sublocality_level_2")){
-            console.log("types =  " + types)
-            console.log(this.address.cityname)
-            return      
-          }
-          else if(types.includes("political") || types.includes("locality") || types.includes("sublocality") || types.includes("sublocality_level_1")){
-            
-            console.log("types = all " + types)
-          }
-          else{
-        
-            console.log("types =  rest:" + types) 
-          }  */    
-        }
-      }
-    });
-  }
-
   getAddress(lat, long) {
     let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long;
     return this.GET(url);

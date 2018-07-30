@@ -36,12 +36,13 @@ export class PlacesSearchbarComponent {
 
   viewUpdate(address){
     this.zone.run(() => {
-      this.address.fullAddress = address;
+      this.address.fullAddress = address.formatted_address;
       this.currentPosition.emit(this.address.fullAddress);
     });
   }
   /**
    * Gets the current position of the user and trys to display it
+   * 
   */
  getCurrentPosition(){
   this.position = this.mapService.getCurrentPositionLatLong()
@@ -53,32 +54,19 @@ export class PlacesSearchbarComponent {
     var geocoder = this.mapService.reverseGeocode();  
     geocoder.geocode({'location': latlng}, (results, status) => {
       if(status == "OK"){
-        console.log(results);
         this.results = results;
-        console.log(results[0])
         for(var i = 0; i < this.results.length -1; i++){
           var types = this.results[i].types;
-
-          if(types.includes("route") || types.includes("street_address")|| types.includes("premise")){
-            this.results.splice(i, 1);
-            i--;
+          if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1")|| types.includes("sublocality_level_2")){
+            this.viewUpdate(this.results[i]);
+            return
           }
-          else if(types.includes("political") && types.includes("sublocality") && types.includes("sublocality_level_1") || types.includes("sublocality_level_2")){
-            console.log("types =  " + types)
-            console.log(this.address.cityname)
-            this.viewUpdate(this.results[i].formatted_address);
-            return      
-          }
-          else if(types.includes("political") || types.includes("locality") || types.includes("sublocality") || types.includes("sublocality_level_1")){
-            this.viewUpdate(this.results[i].formatted_address);
-            console.log("types = all " + types)
-            console.log(this.address.cityname)
+          else if(types.includes("political") && types.includes("locality")){
+            this.viewUpdate(this.results[i]);
           }
           else{
-            this.viewUpdate(this.results[i].formatted_address);
-            console.log("types =  rest:" + types)
-            console.log(this.address.cityname)    
-          }      
+            // no results
+          }   
         }
       }
     });
@@ -137,9 +125,7 @@ export class PlacesSearchbarComponent {
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
-          console.log("regions: ")
-          console.log(place)
-          this.selectedPlace.emit(place);
+          this.selectedPlace.emit(place.formatted_address);
           sub.next(place.geometry.location);
         }
       });

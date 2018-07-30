@@ -29,7 +29,6 @@ export class AddPostPage {
               private cameraService: CameraServiceProvider, public _DomSanitizer: DomSanitizer) {
 
       this.address = navParams.get("address");
-      console.log(this.address);
   }
 
   ionViewDidLoad() {
@@ -42,6 +41,7 @@ export class AddPostPage {
    */
   addPost(post: Post){
     console.log(post);
+    this.navCtrl.pop();
     //this.dbService.createPost(post);
   }
 

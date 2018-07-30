@@ -26,23 +26,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     //this.getCurrentPosition();
-    this.getPos();
-  }
-
-  /**
-   * Shows the Adress based on the Latitude and Longitude
-   * @param lat 
-   * @param long 
-   */
-  showAdress(lat, long){
-    this.geoCoderService.getAddress(lat, long).subscribe(
-      address => {
-        console.log("cityname: " + address.results[0].address_components[3].long_name);
-        console.log("country: " + address.results[0].address_components[7].long_name);
-        console.log(address);
-      },
-      err => console.log("Error in getting the street address " + err)
-    )
   }
 
   openPage(pageName: string, location: string){
@@ -58,51 +41,34 @@ export class HomePage {
     } 
   }
 
-  getPos(){
-    this.position = this.geoCoderService.getCurrentPositionLatLong()
-      .then((position)=>{
-        this.lat = position.coords.latitude;
-        this.long = position.coords.longitude;
-        this.geoCoderService.getCurrentPosition(this.lat, this.long);
-      })
-      .catch(e =>{
-        console.log(e.message)
-      })
-    
-  }
-
   /**
    * Get the current Position from the Component
-   
+   * regEx: ([\w ]*)(, )?([\w ]*), ([a-zA-Z ]*)
+   */
   getCurrenPosition(address){
-    console.log("Home " + address)
-    this.address.fullAddress = address;
-    var addressSplitArray = this.address.fullAddress.split(",");
-    console.log(addressSplitArray);
-    if(addressSplitArray.length == 3){
-      this.address.district = addressSplitArray[0];
-      this.address.cityname = addressSplitArray[1];
-      this.address.country = addressSplitArray[2];
-    }
-    else{
-      this.address.district = ""
-      this.address.cityname = addressSplitArray[0];
-      this.address.country = addressSplitArray[1];
-    }  
-    
-    console.log("district " + this.address.district)
-    console.log("name " +this.address.cityname)
-    console.log("country " +this.address.country)
-  }*/
+    this.fillAddressObject(address);    
+  }
 
   /**
    * Gets the selected Place from the PlaceSearchComponent
    * @param place 
    */
-  getSelectedPlace(place){
-    this.address = place.formatted_address;
-    this.cityName = place.vicinity;
-    this.fillLocationArray(place);
+  getSelectedPlace(address){
+    this.fillAddressObject(address);
+  }
+
+  fillAddressObject(address){
+    var results = /([\w ]*)(, )?([\w ]*),([\w ]*)/.exec(address);
+    if(results[3] == ""){
+      this.address.cityname = results[1],
+      this.address.country = results[4]    
+    }
+    else{
+      this.address.district = results[1],
+      this.address.cityname = results[3],
+      this.address.country = results[4]
+    }
+    console.log(this.address)
   }
 
   fillLocationArray(place){

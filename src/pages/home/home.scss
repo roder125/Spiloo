@@ -1,5 +1,22 @@
 page-home {
 
+    .searchbar-search-icon {
+        background-image: url()!important;   
+    }
+
+    .menuBtn{
+        position: absolute;
+        z-index: 1000;
+    }
+
+    .searchbar{
+        //position: absolute;
+        //top: 2.5px;
+        width: 100%;
+        //left: 0;
+        margin: auto;
+    }
+
     ion-card {
         position: relative;
         text-align: center;
