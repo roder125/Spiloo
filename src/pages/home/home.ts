@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GeocodingProvider } from '../../providers/geocoding/geocoding';
 import { Address } from '../../models/address.interface';
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 
 @IonicPage()
 @Component({
@@ -18,13 +18,22 @@ export class HomePage {
   places = [];
   place: any;
   results = [];
+  saveArray = [];
+  locationPosts = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geoCoderService: GeocodingProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fbService: FirebaseServiceProvider,private zone: NgZone) {
    
   }
 
   ionViewDidLoad() {
     //this.getCurrentPosition();
+  }
+
+  viewUpdate(content){
+    this.zone.run(() => {
+      this.locationPosts = content;
+      console.log(content)
+    });
   }
 
   openPage(pageName: string, location: string){
@@ -71,6 +80,19 @@ export class HomePage {
       this.address.cityname = results[3],
       this.address.country = results[4]
     }
+    this.getFilteredPostList(this.address.cityname);
+  }
+
+  /**
+   * returns a List out of the database
+   */
+  getFilteredPostList(city){
+    this.fbService.getPosts().orderByChild("post/city").equalTo(city).on("child_added",(snapshot) =>{
+      var val = snapshot.val();
+      
+      this.saveArray.push(val)
+      this.viewUpdate(this.saveArray.slice().reverse());
+    });
   }
 
   /*

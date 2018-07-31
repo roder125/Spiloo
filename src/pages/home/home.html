@@ -13,6 +13,17 @@
 
 <ion-content padding>
 
+  <ion-list>
+    
+  </ion-list>
+
+  <ion-card class="card" *ngFor="let post of locationPosts">
+    <div padding class="card-username">"username" posted: {{post.post.created}}</div>
+    <div class="card-title">{{post.post.title}}</div>
+    <ion-card-content class="card-content">
+      {{post.post.content}}
+    </ion-card-content>
+  </ion-card>
 
   <!--
   <ion-card *ngFor="let place of places" (click)="openPage('CityOverviewPage', place.name)">

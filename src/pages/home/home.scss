@@ -19,16 +19,29 @@ page-home {
 
     ion-card {
         position: relative;
-        text-align: center;
+        min-height: 30vh;
     }
 
     .card-title {
         position: absolute;
-        top: 50%;
+        bottom: 10%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
         font-size: 2.0em;
-        width: 100%;
         font-weight: bold;
-        color: #fff;
+        color: rgb(0, 0, 0);
+    }
+
+    .card-username{
+        position: absolute;;
+    }
+
+    .card-content{
+        position: absolute;
+        //margin: auto;
+        bottom: 5%;
+        width: 100%;
     }
 
     img {
@@ -44,7 +57,7 @@ page-home {
     }
     
     .btnPos {
-        position: absolute;
+        position: fixed;
         bottom: 15px;
         right: 15px;    
         }

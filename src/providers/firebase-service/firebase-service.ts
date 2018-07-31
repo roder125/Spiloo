@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Post } from "../../models/post.interface"
+import { Post } from "../../models/post.interface";
+import * as firebase from 'firebase';
 
 @Injectable()
 export class FirebaseServiceProvider {
@@ -38,8 +39,8 @@ export class FirebaseServiceProvider {
   /**
    * Gets the Posts from the Database
    */
-  getPost(){
-
+  getPosts(){
+    return firebase.database().ref("post-list");
   }
 
 }
